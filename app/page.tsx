@@ -12,12 +12,13 @@ export default function Home() {
         <Title />
         <Company />
       </header>
-
-      {/*<div className={s.planet}>*/}
-      {/*  <Planet />*/}
-      {/*</div>*/}
-      <Cart />
-      <Flights />
+      <div className={s.planet}>
+        <Planet />
+      </div>
+      <div className={s.block}>
+        <Flights />
+        <Cart />
+      </div>
     </main>
   )
 }

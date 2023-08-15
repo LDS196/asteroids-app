@@ -1,4 +1,5 @@
-.cart{
+.cart {
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
   gap: 32px 0;
@@ -7,17 +8,28 @@
   background: #232526;
   max-width: 150px;
   width: 100%;
+  @media screen and (max-width: 515px) {
+    position: fixed;
+    flex-direction: row;
+    bottom: 0;
+    left: 0;
+    max-width: none;
+    border-radius: 0;
+    justify-content: space-between;
+  }
 }
-.cart__title{
+.cart__title {
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
 }
-.cart__description{
+
+.cart__description {
   line-height: 24px;
 }
-.button{
+
+.button {
   border-radius: 40px;
   background: #F86600;
   padding: 8px 16px;

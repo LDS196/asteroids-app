@@ -10,7 +10,16 @@ const Flights = () => {
         <span>в километрах</span> <span className={s.line}></span>
         <span className={s.active}>в лунных орбитах</span>
       </div>
-      <FlightItem />
+      <div className={s.list}>
+        <FlightItem />
+        <FlightItem />
+        <FlightItem />
+        <FlightItem />
+        <FlightItem />
+        <FlightItem />
+        <FlightItem />
+        <FlightItem />
+      </div>
     </div>
   )
 }

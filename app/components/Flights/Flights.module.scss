@@ -2,6 +2,9 @@
 .flights {
   max-width: 402px;
   width: 100%;
+  @media screen and (max-width: 915px){
+  max-width: 278px;
+  }
 }
 
 .title {
@@ -26,4 +29,10 @@
 .active{
   font-weight: 400;
   text-decoration: underline
+}
+.list{
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  gap: 24px 0;
 }
