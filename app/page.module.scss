@@ -1,15 +1,16 @@
-.main{
+.main {
   width: 100%;
   max-width: 1356px;
   margin: 0 auto;
   position: relative;
 }
-.header{
+
+.header {
   padding: 16px;
 }
-.planet{
-position: absolute;
+
+.planet {
+  z-index: -1;
+  position: absolute;
   top: 138px;
-  width: 536px;
-  height: 620px;
 }
