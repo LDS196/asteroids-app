@@ -21,18 +21,13 @@ type Props = {
   addToCartHandler: (android: AndroidType) => void
   deleteCarHandler: (id: string) => void
 }
-const AsteroidItem = ({
-  data,
-  mode,
-  addToCartHandler,
-  isInCart,
-  deleteCarHandler,
-  isSentOrder,
-}: Props) => {
+const AsteroidItem = (props: Props) => {
   const router = useRouter()
 
+  const { data, mode, addToCartHandler, isInCart, deleteCarHandler, isSentOrder } = props
+
   const onClickHandler = () => {
-    router.push(`/asteroid/${id}`)
+    !isSentOrder && router.push(`/asteroid/${id}`)
   }
 
   const date = formatDate(data.close_approach_data[0].close_approach_date)
@@ -55,9 +50,10 @@ const AsteroidItem = ({
   const deleteFromCart = () => {
     deleteCarHandler(data.id)
   }
+
   return (
     <div className={s.item}>
-      <div className={s.desc} onClick={onClickHandler}>
+      <div className={isSentOrder?'':s.desc} onClick={onClickHandler}>
         <div className={s.date}>{date}</div>
         <div className={s.about}>
           <div className={s.distance}>
