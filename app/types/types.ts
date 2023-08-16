@@ -63,3 +63,4 @@ export type MissDistance = {
   kilometers: string
   miles: string
 }
+export type ModeType = 'km' | 'lunar'
