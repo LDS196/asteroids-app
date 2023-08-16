@@ -23,7 +23,6 @@ export default async function Home() {
       </div>
       <div className={s.block}>
         <Flights data={androids} />
-        <Cart />
       </div>
     </main>
   )

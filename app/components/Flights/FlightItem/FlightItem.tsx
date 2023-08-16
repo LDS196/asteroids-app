@@ -10,13 +10,17 @@ import { AndroidType, ModeType } from '@/app/types/types'
 import { formatDate } from '@/app/utils/formatDate'
 import { extractTextBetweenBrackets } from '@/app/utils/extract_text_between_brackets'
 import { formatNumber } from '@/app/utils/formatNumber'
+import arrow from '../../../assets/images/Arrow 1.png'
 
 const averageSizeAndroid = 500
 type Props = {
+  isInCart: boolean
   data: AndroidType
   mode: ModeType
+  addToCartHandler: (android: AndroidType) => void
+  deleteCarHandler: (id: string) => void
 }
-const FlightItem = ({ data, mode }: Props) => {
+const FlightItem = ({ data, mode, addToCartHandler, isInCart, deleteCarHandler }: Props) => {
   const router = useRouter()
 
   const onClickHandler = () => {
@@ -37,6 +41,12 @@ const FlightItem = ({ data, mode }: Props) => {
   const unit = mode === 'km' ? 'км' : 'лунных орбит'
   const distanceForRender = formatNumber(distance[mode]) + ' ' + unit
 
+  const addToCart = () => {
+    addToCartHandler(data)
+  }
+  const deleteFromCart = () => {
+    deleteCarHandler(data.id)
+  }
   return (
     <div className={s.item}>
       <div className={s.desc} onClick={onClickHandler}>
@@ -44,19 +54,7 @@ const FlightItem = ({ data, mode }: Props) => {
         <div className={s.about}>
           <div className={s.distance}>
             <span>{distanceForRender}</span>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='96'
-              height='6'
-              viewBox='0 0 96 6'
-              fill='none'
-            >
-              <path
-                d='M0 3L5 5.88675L5 0.113249L0 3ZM96 3.00001L91 0.113257L91 5.88676L96 3.00001ZM4.5 3.5L91.5 3.50001L91.5 2.50001L4.5 2.5L4.5 3.5Z'
-                fill='white'
-                fillOpacity='0.5'
-              />
-            </svg>
+            <Image src={arrow} alt={'Arrow'} />
           </div>
           <Image
             src={asteroid}
@@ -72,7 +70,12 @@ const FlightItem = ({ data, mode }: Props) => {
       </div>
 
       <div className={s.order}>
-        <Button title={'заказать'} />
+        {isInCart ? (
+          <Button callback={deleteFromCart} title={'в корзине'} />
+        ) : (
+          <Button callback={addToCart} title={'заказать'} />
+        )}
+
         {dangerous && <Image src={dangerousImg} width={67} height={20} alt='Asteroid' />}
       </div>
     </div>
