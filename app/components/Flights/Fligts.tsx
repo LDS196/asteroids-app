@@ -11,7 +11,7 @@ type Props = {
 }
 
 const Flights = ({ data }: Props) => {
-  const [androids, setAndroids] = useState(data)
+  const [asteroidsArr, setAndroidsArr] = useState(data)
 
   const [cart, setCart] = useState<AndroidType[]>([])
 
@@ -37,17 +37,17 @@ const Flights = ({ data }: Props) => {
   const clearCart = () => {
     setCart([])
   }
-  const androidX = isSentOrder ? cart : androids
+  const asteroids = isSentOrder ? cart : asteroidsArr
 
   const title = isSentOrder ? 'Заказ отправлен!' : 'Ближайшие подлёты астероидов'
 
-  const androidsForRender = androidX.map((android) => {
-    const isInCart = cart.includes(android)
+  const asteroidsForRender =asteroids.map((asteroid) => {
+    const isInCart = cart.includes(asteroid)
     return (
-      <li key={android.id}>
+      <li key={asteroid.id}>
         <FlightItem
           isSentOrder={isSentOrder}
-          data={android}
+          data={asteroid}
           mode={mode}
           addToCartHandler={addToCartHandler}
           deleteCarHandler={deleteCarHandler}
@@ -78,7 +78,7 @@ const Flights = ({ data }: Props) => {
             </span>
           </div>
         )}
-        <ul className={s.list}>{androidsForRender}</ul>
+        <ul className={s.list}>{asteroidsForRender}</ul>
         {isSentOrder && <Button title={'назад'} callback={goToEnd} />}
       </div>
       {!isSentOrder && <Cart count={cart.length} setOrderStatus={setOrderStatus} />}
