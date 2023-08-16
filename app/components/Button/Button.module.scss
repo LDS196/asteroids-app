@@ -8,4 +8,8 @@
   padding: 2px 11px;
   background-color: rgba(248, 102, 0, 0.15);
   border-radius: 16px;
+  &:hover{
+    background-color: #F86600;
+    color:#fff
+  }
 }

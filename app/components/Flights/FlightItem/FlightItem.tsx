@@ -14,13 +14,21 @@ import arrow from '../../../assets/images/Arrow 1.png'
 
 const averageSizeAndroid = 500
 type Props = {
+  isSentOrder: boolean
   isInCart: boolean
   data: AndroidType
   mode: ModeType
   addToCartHandler: (android: AndroidType) => void
   deleteCarHandler: (id: string) => void
 }
-const FlightItem = ({ data, mode, addToCartHandler, isInCart, deleteCarHandler }: Props) => {
+const FlightItem = ({
+  data,
+  mode,
+  addToCartHandler,
+  isInCart,
+  deleteCarHandler,
+  isSentOrder,
+}: Props) => {
   const router = useRouter()
 
   const onClickHandler = () => {
@@ -70,10 +78,14 @@ const FlightItem = ({ data, mode, addToCartHandler, isInCart, deleteCarHandler }
       </div>
 
       <div className={s.order}>
-        {isInCart ? (
-          <Button callback={deleteFromCart} title={'в корзине'} />
-        ) : (
-          <Button callback={addToCart} title={'заказать'} />
+        {!isSentOrder && (
+          <div>
+            {isInCart ? (
+              <Button callback={deleteFromCart} title={'в корзине'} />
+            ) : (
+              <Button callback={addToCart} title={'заказать'} />
+            )}
+          </div>
         )}
 
         {dangerous && <Image src={dangerousImg} width={67} height={20} alt='Asteroid' />}
