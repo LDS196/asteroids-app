@@ -1,16 +1,16 @@
 'use client'
 import React, { useState } from 'react'
-import s from './FlightItem.module.scss'
+import s from './AsteroidItem.module.scss'
 import Image from 'next/image'
 import asteroid from '@/app/assets/images/asteroid.png'
 import Button from '@/app/components/Button/Button'
-import dangerousImg from '../../../assets/images/danger.svg'
+import dangerousImg from '../../assets/images/danger.svg'
 import { useRouter } from 'next/navigation'
 import { AndroidType, ModeType } from '@/app/types/types'
 import { formatDate } from '@/app/utils/formatDate'
 import { extractTextBetweenBrackets } from '@/app/utils/extract_text_between_brackets'
 import { formatNumber } from '@/app/utils/formatNumber'
-import arrow from '../../../assets/images/Arrow 1.png'
+import arrow from '../../assets/images/Arrow 1.png'
 
 const averageSizeAndroid = 500
 type Props = {
@@ -21,7 +21,7 @@ type Props = {
   addToCartHandler: (android: AndroidType) => void
   deleteCarHandler: (id: string) => void
 }
-const FlightItem = ({
+const AsteroidItem = ({
   data,
   mode,
   addToCartHandler,
@@ -94,4 +94,4 @@ const FlightItem = ({
   )
 }
 
-export default FlightItem
+export default AsteroidItem
