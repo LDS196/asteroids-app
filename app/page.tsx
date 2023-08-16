@@ -4,8 +4,14 @@ import Company from '@/app/components/Company/Company'
 import Planet from '@/app/components/Planet/Planet'
 import Cart from '@/app/components/Company/Cart/Cart'
 import Flights from '@/app/components/Flights/Fligts'
+import { calculateFutureDate } from '@/app/utils/calculateFutureDate'
+import { fetchAndroids } from '@/app/services/api'
 
-export default function Home() {
+export default async function Home() {
+  const startDate = calculateFutureDate(0)
+  const data = await fetchAndroids(startDate)
+  const androids = data.near_earth_objects[startDate]
+
   return (
     <main className={s.main}>
       <header className={s.header}>
@@ -16,7 +22,7 @@ export default function Home() {
         <Planet />
       </div>
       <div className={s.block}>
-        <Flights />
+        <Flights data={androids} />
         <Cart />
       </div>
     </main>

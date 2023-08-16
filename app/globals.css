@@ -27,3 +27,6 @@ button {
   color: inherit;
   font: inherit;
 }
+li {
+  list-style: none;
+}
