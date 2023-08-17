@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AndroidType, AsteroidForCartType, ModeType } from '@/app/types/types'
+import { AndroidType, ModeType } from '@/app/types/types'
 import AsteroidItem from '@/app/components/AsteroidItem/AsteroidItem'
 import s from './Asteroid.module.scss'
 import { calculateFutureDate } from '@/app/utils/calculateFutureDate'
@@ -8,9 +8,9 @@ import { fetchAndroids } from '@/app/services/api'
 import LoadingSpiner from '@/app/components/Loading/LoadingSpiner'
 
 type PropsType = {
-  cart: AsteroidForCartType[]
+  cart: AndroidType[]
   asteroids: AndroidType[]
-  addToCartHandler: (android: AsteroidForCartType) => void
+  addToCartHandler: (android: AndroidType) => void
   deleteCarHandler: (id: string) => void
 }
 

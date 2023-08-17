@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import s from './MainContent.module.scss'
-import { AndroidType, AsteroidForCartType } from '@/app/types/types'
+import { AndroidType } from '@/app/types/types'
 import Cart from '@/app/components/Cart/Cart'
 import Button from '@/app/components/Button/Button'
 import Asteroids from '@/app/components/AsteroidsList/Asteroids'
@@ -11,7 +11,7 @@ type Props = {
   data: AndroidType[]
 }
 export const MainContent = ({ data }: Props) => {
-  const [cart, setCart] = useState<AsteroidForCartType[]>([])
+  const [cart, setCart] = useState<AndroidType[]>([])
 
   const [isSentOrder, setIsSentOrder] = useState(false)
 
@@ -19,7 +19,7 @@ export const MainContent = ({ data }: Props) => {
     setIsSentOrder(value)
   }
 
-  const addToCartHandler = (asteroid: AsteroidForCartType) => {
+  const addToCartHandler = (asteroid: AndroidType) => {
     setCart([...cart, asteroid])
   }
 

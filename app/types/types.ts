@@ -73,3 +73,5 @@ export type AsteroidForCartType = {
   sizeImgAndroid: { width: number; height: number }
   distance: string
 }
+
+export type CartContextType = {}

@@ -6,7 +6,7 @@ import asteroid from '@/app/assets/images/asteroid.png'
 import Button from '@/app/components/Button/Button'
 import dangerousImg from '../../assets/images/danger.svg'
 import { useRouter } from 'next/navigation'
-import { AndroidType, AsteroidForCartType, ModeType } from '@/app/types/types'
+import { AndroidType, ModeType } from '@/app/types/types'
 import { formatDate } from '@/app/utils/formatDate'
 import { extractTextBetweenBrackets } from '@/app/utils/extract_text_between_brackets'
 import { formatNumber } from '@/app/utils/formatNumber'
@@ -15,11 +15,11 @@ import arrow from '../../assets/images/Arrow 1.png'
 const averageSizeAsteroid = 500
 
 type Props = {
-  isInCart: boolean
+  isInCart?: boolean
   data: AndroidType
-  mode: ModeType
-  addToCartHandler: (asteroid: AsteroidForCartType) => void
-  deleteCarHandler: (id: string) => void
+  mode?: ModeType
+  addToCartHandler?: (asteroid: AndroidType) => void
+  deleteCarHandler?: (id: string) => void
 }
 const AsteroidItem = (props: Props) => {
   const router = useRouter()
@@ -41,24 +41,14 @@ const AsteroidItem = (props: Props) => {
     km: Math.ceil(+data.close_approach_data[0].miss_distance.kilometers),
     lunar: Math.ceil(+data.close_approach_data[0].miss_distance.lunar),
   }
-  const unit = mode === 'km' ? 'км' : 'лунных орбит'
-  const distanceForRender = formatNumber(distance[mode]) + ' ' + unit
-
-  const asteroidForCart = {
-    id,
-    date,
-    name,
-    dangerous,
-    diameterMax,
-    sizeImgAndroid,
-    distance: distanceForRender,
-  }
+  const unit = mode ? (mode === 'km' ? 'км' : 'лунных орбит') : 'км'
+  const distanceForRender = formatNumber(distance[mode ? mode : 'km']) + ' ' + unit
 
   const addToCart = () => {
-    addToCartHandler(asteroidForCart)
+    addToCartHandler && addToCartHandler(data)
   }
   const deleteFromCart = () => {
-    deleteCarHandler(data.id)
+    deleteCarHandler && deleteCarHandler(data.id)
   }
 
   return (
@@ -85,7 +75,7 @@ const AsteroidItem = (props: Props) => {
 
       <div className={s.order}>
         <div>
-          {isInCart ? (
+          {isInCart === undefined ? null : isInCart ? (
             <Button callback={deleteFromCart} title={'в корзине'} />
           ) : (
             <Button callback={addToCart} title={'заказать'} />

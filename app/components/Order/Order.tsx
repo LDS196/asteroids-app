@@ -1,17 +1,17 @@
 import React from 'react'
-import { AsteroidForCartType } from '@/app/types/types'
+import { AndroidType } from '@/app/types/types'
 import s from './Order.module.scss'
-import OrderItem from '@/app/components/Order/OrderItem/OrderItem'
+import AsteroidItem from '@/app/components/AsteroidItem/AsteroidItem'
 
 type PropsType = {
-  cart: AsteroidForCartType[]
+  cart: AndroidType[]
 }
 
 const Order = ({ cart }: PropsType) => {
   const orderForRender = cart.map((el) => {
     return (
       <li key={el.id}>
-        <OrderItem data={el} />
+        <AsteroidItem data={el} />
       </li>
     )
   })
