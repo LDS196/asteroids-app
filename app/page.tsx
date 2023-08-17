@@ -4,7 +4,7 @@ import Company from '@/app/components/Company/Company'
 import Planet from '@/app/components/Planet/Planet'
 import { calculateFutureDate } from '@/app/utils/calculateFutureDate'
 import { fetchAndroids } from '@/app/services/api'
-import MainContent from '@/app/components/MainContent/MainContent'
+import { MainContent } from '@/app/components/MainContent/MainContent'
 
 export default async function Home() {
   const startDate = calculateFutureDate(0)
@@ -22,7 +22,7 @@ export default async function Home() {
       <div className={s.planet}>
         <Planet />
       </div>
-      <div className={s.block}>
+      <div className={s.content}>
         <MainContent data={androids} />
       </div>
     </main>

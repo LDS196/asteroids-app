@@ -1,0 +1,12 @@
+.list{
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  gap: 24px 0;
+}
+.title {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+}

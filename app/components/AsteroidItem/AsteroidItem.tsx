@@ -1,42 +1,42 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import s from './AsteroidItem.module.scss'
 import Image from 'next/image'
 import asteroid from '@/app/assets/images/asteroid.png'
 import Button from '@/app/components/Button/Button'
 import dangerousImg from '../../assets/images/danger.svg'
 import { useRouter } from 'next/navigation'
-import { AndroidType, ModeType } from '@/app/types/types'
+import { AndroidType, AsteroidForCartType, ModeType } from '@/app/types/types'
 import { formatDate } from '@/app/utils/formatDate'
 import { extractTextBetweenBrackets } from '@/app/utils/extract_text_between_brackets'
 import { formatNumber } from '@/app/utils/formatNumber'
 import arrow from '../../assets/images/Arrow 1.png'
 
-const averageSizeAndroid = 500
+const averageSizeAsteroid = 500
+
 type Props = {
-  isSentOrder: boolean
   isInCart: boolean
   data: AndroidType
   mode: ModeType
-  addToCartHandler: (android: AndroidType) => void
+  addToCartHandler: (asteroid: AsteroidForCartType) => void
   deleteCarHandler: (id: string) => void
 }
 const AsteroidItem = (props: Props) => {
   const router = useRouter()
 
-  const { data, mode, addToCartHandler, isInCart, deleteCarHandler, isSentOrder } = props
+  const { data, mode, addToCartHandler, isInCart, deleteCarHandler } = props
 
   const onClickHandler = () => {
-    !isSentOrder && router.push(`/asteroid/${id}`)
+    router.push(`/asteroid/${id}`)
   }
 
   const date = formatDate(data.close_approach_data[0].close_approach_date)
-  const dangerous = data.is_sentry_object
+  const dangerous = data.is_potentially_hazardous_asteroid
   const id = data.id
   const name = extractTextBetweenBrackets(data.name)
   const diameterMax = Math.ceil(data.estimated_diameter.meters.estimated_diameter_max)
   const sizeImgAndroid =
-    diameterMax > averageSizeAndroid ? { width: 36, height: 40 } : { width: 22, height: 24 }
+    diameterMax > averageSizeAsteroid ? { width: 36, height: 40 } : { width: 22, height: 24 }
   const distance = {
     km: Math.ceil(+data.close_approach_data[0].miss_distance.kilometers),
     lunar: Math.ceil(+data.close_approach_data[0].miss_distance.lunar),
@@ -44,8 +44,18 @@ const AsteroidItem = (props: Props) => {
   const unit = mode === 'km' ? 'км' : 'лунных орбит'
   const distanceForRender = formatNumber(distance[mode]) + ' ' + unit
 
+  const asteroidForCart = {
+    id,
+    date,
+    name,
+    dangerous,
+    diameterMax,
+    sizeImgAndroid,
+    distance: distanceForRender,
+  }
+
   const addToCart = () => {
-    addToCartHandler(data)
+    addToCartHandler(asteroidForCart)
   }
   const deleteFromCart = () => {
     deleteCarHandler(data.id)
@@ -53,7 +63,7 @@ const AsteroidItem = (props: Props) => {
 
   return (
     <div className={s.item}>
-      <div className={isSentOrder?'':s.desc} onClick={onClickHandler}>
+      <div className={s.desc} onClick={onClickHandler}>
         <div className={s.date}>{date}</div>
         <div className={s.about}>
           <div className={s.distance}>
@@ -74,15 +84,13 @@ const AsteroidItem = (props: Props) => {
       </div>
 
       <div className={s.order}>
-        {!isSentOrder && (
-          <div>
-            {isInCart ? (
-              <Button callback={deleteFromCart} title={'в корзине'} />
-            ) : (
-              <Button callback={addToCart} title={'заказать'} />
-            )}
-          </div>
-        )}
+        <div>
+          {isInCart ? (
+            <Button callback={deleteFromCart} title={'в корзине'} />
+          ) : (
+            <Button callback={addToCart} title={'заказать'} />
+          )}
+        </div>
 
         {dangerous && <Image src={dangerousImg} width={67} height={20} alt='Asteroid' />}
       </div>

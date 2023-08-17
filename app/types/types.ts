@@ -64,3 +64,12 @@ export type MissDistance = {
   miles: string
 }
 export type ModeType = 'km' | 'lunar'
+export type AsteroidForCartType = {
+  id: string
+  date: string
+  name: string | null
+  dangerous: boolean
+  diameterMax: number
+  sizeImgAndroid: { width: number; height: number }
+  distance: string
+}

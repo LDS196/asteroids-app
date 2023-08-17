@@ -1,29 +1,56 @@
-import React from 'react'
-import { AndroidType, ModeType } from '@/app/types/types'
+import React, { useState } from 'react'
+import { AndroidType, AsteroidForCartType, ModeType } from '@/app/types/types'
 import AsteroidItem from '@/app/components/AsteroidItem/AsteroidItem'
 import s from './Asteroid.module.scss'
+import { calculateFutureDate } from '@/app/utils/calculateFutureDate'
+import { API_KEY, BASE_URL } from '@/app/services/common.api'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 type PropsType = {
-  isSentOrder: boolean
-  cart: AndroidType[]
+  cart: AsteroidForCartType[]
   asteroids: AndroidType[]
-  mode: ModeType
-  addToCartHandler: (android: AndroidType) => void
+  addToCartHandler: (android: AsteroidForCartType) => void
   deleteCarHandler: (id: string) => void
 }
 
 const Asteroids = (props: PropsType) => {
-  const { isSentOrder, cart, asteroids, mode, addToCartHandler, deleteCarHandler } = props
+  const { cart, asteroids, addToCartHandler, deleteCarHandler } = props
+  const [modeDistance, setModeDistance] = useState<ModeType>('km')
+  const [asteroidsArr, setAndroidsArr] = useState(asteroids)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [page, setPage] = useState(1)
+  const onSetModeDistance = (value: ModeType) => {
+    setModeDistance(value)
+  }
+  const fetchData = async () => {
+    setIsLoading(true)
+    setError(null)
 
-  const asteroidsForRender = asteroids.map((asteroid) => {
-    const isInCart = cart.includes(asteroid)
+    try {
+      const startDate = calculateFutureDate(page)
+      const response = await fetch(
+        `${BASE_URL}/feed?start_date=${startDate}&end_date=${startDate}&api_key=${API_KEY}`,
+      )
+      const data = await response.json()
+
+      setAndroidsArr((prev) => [...prev, ...data.near_earth_objects[startDate]])
+      setPage((prev) => prev + 1)
+    } catch (error: any) {
+      setError(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const asteroidsForRender = asteroidsArr.map((asteroid) => {
+    const isInCart = !!cart.find((el) => el.id === asteroid.id)
 
     return (
       <li key={asteroid.id}>
         <AsteroidItem
-          isSentOrder={isSentOrder}
           data={asteroid}
-          mode={mode}
+          mode={modeDistance}
           addToCartHandler={addToCartHandler}
           deleteCarHandler={deleteCarHandler}
           isInCart={isInCart}
@@ -31,7 +58,35 @@ const Asteroids = (props: PropsType) => {
       </li>
     )
   })
-  return <ul className={s.list}>{asteroidsForRender}</ul>
+  return (
+    <div>
+      <InfiniteScroll
+        dataLength={asteroidsArr.length}
+        next={fetchData}
+        hasMore={true}
+        loader={<p>Loading...</p>}
+        endMessage={<p>No more data to load.</p>}
+      >
+        <h4 className={s.title}>Ближайшие подлёты астероидов</h4>
+        <div className={s.settings}>
+          <span
+            onClick={() => onSetModeDistance('km')}
+            className={modeDistance === 'km' ? s.active : ''}
+          >
+            в километрах
+          </span>
+          <span className={s.line}></span>
+          <span
+            onClick={() => onSetModeDistance('lunar')}
+            className={modeDistance === 'lunar' ? s.active : ''}
+          >
+            в лунных орбитах
+          </span>
+        </div>
+        <ul className={s.list}>{asteroidsForRender}</ul>
+      </InfiniteScroll>
+    </div>
+  )
 }
 
 export default Asteroids

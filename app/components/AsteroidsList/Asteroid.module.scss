@@ -4,3 +4,26 @@
   padding-top: 24px;
   gap: 24px 0;
 }
+.title {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  margin-bottom: 8px;
+}
+
+.settings {
+  display: flex;
+  font-weight: 700;
+
+}
+.line{
+  background-color: white;
+  width: 1.5px;
+  margin: 6px 6px;
+  height: 12px;
+}
+.active{
+  font-weight: 400;
+  text-decoration: underline
+}
