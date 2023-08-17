@@ -7,7 +7,7 @@ export type AndroidType = {
   absolute_magnitude_h: number
   estimated_diameter: EstimatedDiameter
   is_potentially_hazardous_asteroid: boolean
-  close_approach_data: CloseApproachDaum[]
+  close_approach_data: CloseApproachData[]
   is_sentry_object: boolean
 }
 
@@ -42,7 +42,7 @@ export type Feet = {
   estimated_diameter_max: number
 }
 
-export type CloseApproachDaum = {
+export type CloseApproachData = {
   close_approach_date: string
   close_approach_date_full: string
   epoch_date_close_approach: number
@@ -64,14 +64,10 @@ export type MissDistance = {
   miles: string
 }
 export type ModeType = 'km' | 'lunar'
-export type AsteroidForCartType = {
-  id: string
-  date: string
-  name: string | null
-  dangerous: boolean
-  diameterMax: number
-  sizeImgAndroid: { width: number; height: number }
-  distance: string
-}
 
-export type CartContextType = {}
+export type CartContextType = {
+  cart: AndroidType[]
+  clearCart: () => void
+  deleteFromCart: (id: string) => void
+  addToCart: (asteroid: AndroidType) => void
+}

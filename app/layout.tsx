@@ -1,12 +1,10 @@
 import './globals.scss'
 import type { Metadata } from 'next'
 import React from 'react'
-import s from '@/app/page.module.scss'
 import Title from '@/app/components/Title/Title'
 import Company from '@/app/components/Company/Company'
 import Planet from '@/app/components/Planet/Planet'
 import Footer from '@/app/components/Footer/Footer'
-import { MainContent } from '@/app/components/MainContent/MainContent'
 
 export const metadata: Metadata = {
   title: 'Asteroids',
