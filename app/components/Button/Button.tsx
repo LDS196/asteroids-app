@@ -5,7 +5,7 @@ type Props = {
   title: string
   callback?: () => void
 }
-const Button = ({ title, callback, }: Props) => {
+const Button = ({ title, callback }: Props) => {
   const titleText = title === 'в корзине' ? 'удалить из корзины' : ''
   return (
     <button title={titleText} className={s.button} onClick={callback}>
