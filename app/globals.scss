@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Passion+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+@font-face {
+  font-family: Helvetica;
+  src: url("./fonts/Helvetica/helvetica_bold.otf") format("opentype");
+  src: url("./fonts/Helvetica/helvetica_regular.otf") format("opentype");
+}
 * {
-  font-family: 'Roboto', 'Passion One', sans-serif;
+  font-family: 'Helvetica', 'Passion One', sans-serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -37,17 +41,31 @@ body {
 .header {
   padding: 16px;
   margin-bottom: 9px;
+  @media screen and (max-width: 775px) {
+    margin-bottom: 17px;
+  }
 }
 .planet-bgr {
   z-index: -14;
   position: fixed;
   top: 138px;
+  @media screen and (max-width: 1026px) {
+    left: 0px;
+  }
 @media screen and (max-width: 775px) {
   left: -150px;
 }
 @media screen and (max-width: 625px) {
   left: -256px;
 }
+  img {
+    width: 400px;
+    height: 620px;
+    @media screen and (max-width: 1026px) {
+      width: 304px;
+      height: 436px;
+    }
+  }
 }
 .content {
   min-height: calc(100vh - 180px);
@@ -55,13 +73,14 @@ body {
   justify-content: flex-end;
   padding-right: 277px;
   @media screen and (max-width: 1280px) {
-    padding-right: 150px;
-  }
-  @media screen and (max-width: 1150px) {
     padding-right: 111px;
   }
-  @media screen and (max-width: 375px) {
-    padding-left: 16px;
+  @media screen and (max-width: 1000px) {
+    padding-left: 72px;
+  }
+  @media screen and (max-width: 600px) {
+    padding-right: 16px;
+    justify-content: start;
   }
 }
 

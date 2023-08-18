@@ -57,8 +57,12 @@ const AsteroidItem = (props: Props) => {
         <div className={s.date}>{date}</div>
         <div className={s.about}>
           <div className={s.distance}>
-            <span>{distanceForRender}</span>
-            <Image src={arrow} alt={'Arrow'} />
+            <p> {distanceForRender}</p>
+            <div className={s.arrow}>
+              <div className={s.arrowLeft}></div>
+              <div className={s.line}></div>
+              <div className={s.arrowRight}></div>
+            </div>
           </div>
           <Image
             src={asteroid}
