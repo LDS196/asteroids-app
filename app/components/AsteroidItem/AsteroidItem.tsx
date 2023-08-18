@@ -10,7 +10,6 @@ import { AndroidType, ModeType } from '@/app/types/types'
 import { formatDate } from '@/app/utils/formatDate'
 import { extractTextBetweenBrackets } from '@/app/utils/extract_text_between_brackets'
 import { formatNumber } from '@/app/utils/formatNumber'
-import arrow from '../../assets/images/Arrow 1.png'
 
 const averageSizeAsteroid = 500
 
