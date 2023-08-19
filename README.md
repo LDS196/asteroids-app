@@ -4,7 +4,7 @@
 
 ## Технологии
 
-![NextJS](https://img.shields.io/badge/-React-61daf8?logo=NextJS&logoColor=black)
+![NextJS](https://img.shields.io/badge/-NextJS-61daf8?logo=NextJS&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-blue)
 ![React-infinite-scroll](https://img.shields.io/badge/-Swiper-pink)
 ![React testing library](https://img.shields.io/badge/-Figma-pink)
